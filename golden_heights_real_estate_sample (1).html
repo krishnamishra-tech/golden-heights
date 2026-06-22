@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Golden Heights — Luxury Apartments Mumbai</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#07090f;--navy:#0a1640;--navy2:#141830;--gold:#b8962e;--gold2:#ffd700;--white:#f5f5f5;--muted:#7a86a8;--border:#1a2040;--accent:#c8f135}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:18px 48px;background:rgba(7,9,15,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:padding 0.3s}
+.nav-logo{display:flex;flex-direction:column;line-height:1}
+.nav-logo-italic{font-family:Georgia,serif;font-style:italic;font-size:15px;color:var(--gold)}
+.nav-logo-bold{font-family:'Arial Black',sans-serif;font-size:10px;color:#fff;letter-spacing:4px}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;transition:color 0.2s;padding:8px 18px}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--black)!important;padding:11px 24px!important;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1px}
+.nav-cta:hover{background:var(--gold2)!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:#fff;transition:all 0.3s}
+.mobile-menu{display:none;position:fixed;top:62px;left:0;right:0;background:rgba(7,9,15,0.98);border-bottom:1px solid var(--border);padding:20px;flex-direction:column;gap:4px;z-index:499}
+.mobile-menu a{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:12px 0;border-bottom:1px solid var(--border)}
+.mobile-menu a:last-child{border-bottom:none;color:var(--gold)}
+
+/* ─── PAGES ─── */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* ─── PAGE NAV TABS (inside pages) ─── */
+.page-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:0;background:var(--navy);overflow-x:auto}
+.page-tab{background:transparent;border:none;color:var(--muted);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:18px 28px;cursor:pointer;transition:all 0.2s;white-space:nowrap;border-bottom:2px solid transparent}
+.page-tab:hover{color:var(--white)}
+.page-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+/* ─── COMMON SECTION ─── */
+section{padding:90px 48px}
+.eyebrow{display:flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:14px}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,72px);color:#fff;line-height:1;margin-bottom:16px}
+.sec-sub{font-size:14px;color:var(--muted);line-height:1.8;max-width:580px;margin-bottom:48px}
+hr.divider{border:none;border-top:1px solid var(--border)}
+
+/* ─── BUTTONS ─── */
+.btn-gold{background:var(--gold);color:var(--black);padding:15px 36px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:background 0.2s,transform 0.15s;display:inline-block}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:#fff;padding:15px 36px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);transition:border-color 0.2s,color 0.2s;display:inline-block;cursor:pointer}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:140px 48px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(7,9,15,0.3) 0%,rgba(7,9,15,0.95) 100%),repeating-linear-gradient(90deg,#141830 0px,#141830 38px,#0d1020 38px,#0d1020 76px);opacity:0.7}
+.hero-glow{position:absolute;top:-200px;right:-150px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(184,150,46,0.15) 0%,transparent 70%);z-index:0}
+.hero-glow2{position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(184,150,46,0.07) 0%,transparent 70%);z-index:0}
+.hero>*{position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:24px}
+.hero-tag::before{content:'';width:36px;height:1px;background:var(--gold)}
+.hero-pretitle{font-family:Georgia,serif;font-style:italic;font-size:20px;color:var(--gold);margin-bottom:6px}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,12vw,160px);line-height:0.92;letter-spacing:-2px;margin-bottom:18px}
+.hero-title em{color:var(--gold);font-style:normal;display:block}
+.hero-loc{font-size:13px;color:var(--muted);letter-spacing:5px;text-transform:uppercase;margin-bottom:32px}
+.hero-desc{max-width:560px;font-size:15px;line-height:1.85;color:#aab0c8;margin-bottom:44px}
+.hero-desc strong{color:#fff}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:64px}
+.hero-stats{display:flex;gap:52px;padding-top:36px;border-top:1px solid var(--border);flex-wrap:wrap}
+.hstat-num{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--gold);line-height:1}
+.hstat-lbl{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+
+/* ─── TRUST STRIP ─── */
+.trust-strip{background:var(--navy);padding:44px 48px;display:flex;justify-content:center;gap:0;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-item{flex:1;min-width:140px;text-align:center;padding:0 24px;border-right:1px solid var(--border)}
+.trust-item:last-child{border-right:none}
+.trust-num{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--gold)}
+.trust-lbl{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+
+/* ─── OVERVIEW ─── */
+.overview{background:var(--navy)}
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.overview-text p{font-size:14px;color:#b0b8d0;line-height:1.9;margin-bottom:18px}
+.overview-text p strong{color:#fff}
+.feat-list{display:flex;flex-direction:column;gap:0}
+.feat-row{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
+.feat-row:last-child{border-bottom:none}
+.feat-icon{width:42px;height:42px;background:rgba(184,150,46,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:1px solid rgba(184,150,46,0.2)}
+.feat-text{font-size:14px;color:#dde0ee}
+
+/* ─── FLOOR PLANS ─── */
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.plan-card{background:var(--black);overflow:hidden;transition:transform 0.2s}
+.plan-card:hover{transform:translateY(-4px)}
+.plan-visual{aspect-ratio:4/3;background:var(--navy2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.plan-visual::before{content:'';position:absolute;inset:18px;border:1.5px dashed rgba(184,150,46,0.3)}
+.plan-visual-txt{font-family:'Bebas Neue',sans-serif;font-size:52px;color:rgba(184,150,46,0.4);letter-spacing:2px}
+.plan-featured-badge{position:absolute;top:14px;left:0;background:var(--gold);color:var(--black);font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:5px 14px}
+.plan-body{padding:28px}
+.plan-type{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;margin-bottom:4px}
+.plan-size{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:16px}
+.plan-price{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--gold);margin-bottom:4px}
+.plan-emi{font-size:11px;color:var(--muted);margin-bottom:6px}
+.plan-details{display:flex;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.plan-detail-tag{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;border:1px solid var(--border);padding:4px 10px}
+.plan-btn{display:block;text-align:center;background:transparent;border:1px solid var(--border);color:#fff;padding:13px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all 0.2s;cursor:pointer;width:100%}
+.plan-btn:hover,.plan-featured .plan-btn{border-color:var(--gold);color:var(--gold)}
+.plan-featured .plan-btn{background:var(--gold);color:var(--black)}
+.plan-featured .plan-btn:hover{background:var(--gold2)}
+
+/* ─── AMENITIES ─── */
+.amen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
+.amen-card{background:var(--navy);padding:40px 24px;text-align:center;transition:background 0.25s,transform 0.2s;cursor:default}
+.amen-card:hover{background:var(--navy2);transform:translateY(-3px)}
+.amen-icon{font-size:32px;margin-bottom:16px;display:block}
+.amen-name{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:8px}
+.amen-desc{font-size:11px;color:var(--muted);line-height:1.6}
+
+/* ─── GALLERY ─── */
+.gallery-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px;gap:3px}
+.g-item{position:relative;overflow:hidden;background:var(--navy2)}
+.g-item:first-child{grid-row:1/3}
+.g-fill{width:100%;height:100%;background:repeating-linear-gradient(135deg,#141830,#141830 20px,#0d1020 20px,#0d1020 40px);display:flex;align-items:center;justify-content:center;color:rgba(184,150,46,0.2);font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;transition:transform 0.4s}
+.g-item:hover .g-fill{transform:scale(1.04)}
+.g-tag{position:absolute;bottom:14px;left:14px;font-family:'Space Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;background:rgba(7,9,15,0.8);padding:5px 12px}
+.gallery-note{text-align:center;padding:20px;font-size:12px;color:var(--muted);font-style:italic}
+
+/* ─── LOCATION ─── */
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.loc-map-wrap{position:relative}
+.loc-map{aspect-ratio:1;background:var(--navy2);border:1px solid var(--border);position:relative;overflow:hidden}
+.loc-map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,150,46,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(184,150,46,0.06) 1px,transparent 1px);background-size:32px 32px}
+.road-h{position:absolute;background:rgba(184,150,46,0.2);height:2px;left:0;right:0}
+.road-v{position:absolute;background:rgba(184,150,46,0.2);width:2px;top:0;bottom:0}
+.loc-pin-main{position:absolute;top:50%;left:50%;transform:translate(-50%,-100%);text-align:center;z-index:3}
+.loc-pin-main .pin-dot{width:16px;height:16px;background:var(--gold);border-radius:50%;margin:0 auto;box-shadow:0 0 0 6px rgba(184,150,46,0.2)}
+.loc-pin-main .pin-label{background:var(--gold);color:var(--black);font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:4px 10px;white-space:nowrap;margin-bottom:4px;letter-spacing:1px}
+.loc-pin{position:absolute;text-align:center;transform:translate(-50%,-100%);z-index:2}
+.loc-pin .p-dot{width:8px;height:8px;background:#fff;border-radius:50%;margin:0 auto 3px;border:2px solid var(--navy);box-shadow:0 0 0 2px rgba(255,255,255,0.15)}
+.loc-pin .p-lbl{font-family:'Space Mono',monospace;font-size:8px;color:#cfd5ea;background:rgba(7,9,15,0.85);padding:3px 8px;white-space:nowrap;letter-spacing:0.5px}
+.loc-list{display:flex;flex-direction:column}
+.loc-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--border)}
+.loc-row:last-child{border-bottom:none}
+.loc-place{color:#dde0ee;font-size:14px;display:flex;align-items:center;gap:10px}
+.loc-dist{font-family:'Space Mono',monospace;color:var(--gold);font-size:11px;background:rgba(184,150,46,0.08);padding:4px 10px}
+.loc-map-embed{width:100%;height:300px;border:1px solid var(--border);margin-top:20px;filter:grayscale(0.2)}
+.loc-caption{font-size:11px;color:var(--muted);margin-top:10px;text-align:center;font-style:italic}
+
+/* ─── EMI CALCULATOR ─── */
+.emi-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.emi-card{background:var(--navy);border:1px solid var(--border);padding:36px}
+.emi-row{margin-bottom:28px}
+.emi-label{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.emi-label span{color:var(--gold);font-size:14px}
+input[type="range"]{width:100%;height:3px;border-radius:2px;background:var(--border);appearance:none;outline:none;cursor:pointer}
+input[type="range"]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:3px solid var(--black)}
+input[type="range"]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:3px solid var(--black)}
+.emi-result{margin-top:32px;padding:28px;background:var(--gold);text-align:center}
+.emi-result-lbl{font-family:'Space Mono',monospace;font-size:10px;color:#3a2e08;letter-spacing:2px;margin-bottom:8px}
+.emi-result-val{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--black)}
+.emi-result-sub{font-size:11px;color:#3a2e08;margin-top:6px}
+.emi-breakdown{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.emi-brow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--border)}
+.emi-brow:last-child{border-bottom:none;color:#fff}
+.emi-brow span:last-child{color:var(--gold);font-family:'Space Mono',monospace}
+.emi-note{font-size:11px;color:var(--muted);line-height:1.7;margin-top:20px;font-style:italic}
+
+/* ─── TESTIMONIALS ─── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.testi-card{background:var(--navy);padding:36px 28px;position:relative}
+.testi-quote{font-size:48px;color:rgba(184,150,46,0.25);font-family:Georgia,serif;line-height:1;margin-bottom:16px}
+.testi-text{font-size:14px;color:#b0b8d0;line-height:1.8;margin-bottom:24px;font-style:italic}
+.testi-name{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;letter-spacing:1px}
+.testi-unit{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:1px;margin-top:4px}
+.testi-stars{color:var(--gold);font-size:14px;margin-bottom:14px}
+
+/* ─── BUILDER PAGE ─── */
+.builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.builder-text p{font-size:14px;color:#b0b8d0;line-height:1.9;margin-bottom:18px}
+.builder-text p strong{color:#fff}
+.builder-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:32px}
+.b-stat{background:var(--navy);padding:28px;text-align:center}
+.b-stat-num{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold)}
+.b-stat-lbl{font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:4px}
+.project-list{display:flex;flex-direction:column;gap:1px;background:var(--border)}
+.proj-row{background:var(--navy);padding:22px 24px;display:flex;justify-content:space-between;align-items:center;transition:background 0.2s}
+.proj-row:hover{background:var(--navy2)}
+.proj-name{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px}
+.proj-loc{font-size:12px;color:var(--muted);margin-top:3px}
+.proj-status{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;padding:5px 12px}
+.proj-status.done{background:rgba(37,211,102,0.1);color:#25D366;border:1px solid rgba(37,211,102,0.2)}
+.proj-status.ongoing{background:rgba(184,150,46,0.1);color:var(--gold);border:1px solid rgba(184,150,46,0.2)}
+.award-row{display:flex;flex-direction:column;gap:12px;margin-top:36px}
+.award{display:flex;align-items:center;gap:16px;padding:16px;background:var(--navy);border:1px solid var(--border)}
+.award-icon{font-size:24px;flex-shrink:0}
+.award-text{font-size:13px;color:#dde0ee}
+.award-year{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);margin-top:3px}
+
+/* ─── CONTACT PAGE ─── */
+.contact-page-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start}
+.contact-info-rows{display:flex;flex-direction:column;gap:0}
+.ci-row{display:flex;align-items:center;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);text-decoration:none;color:var(--muted);transition:color 0.2s}
+.ci-row:hover{color:var(--gold)}
+.ci-icon{width:44px;height:44px;background:rgba(184,150,46,0.1);border:1px solid rgba(184,150,46,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ci-sub{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.ci-val{color:#fff;font-size:14px}
+.office-hrs{margin-top:32px;padding:24px;background:var(--navy);border:1px solid var(--border)}
+.office-hrs h3{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;margin-bottom:16px;letter-spacing:1px}
+.hrs-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--border)}
+.hrs-row:last-child{border-bottom:none}
+.hrs-row span:last-child{color:#fff}
+.form-card{background:var(--navy);border:1px solid var(--border);padding:40px}
+.form-title{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;margin-bottom:6px}
+.form-sub{font-size:13px;color:var(--muted);margin-bottom:28px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f-group{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.f-group label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.f-group input,.f-group select,.f-group textarea{background:var(--navy2);border:1px solid var(--border);color:#fff;padding:14px 16px;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;width:100%;resize:none}
+.f-group input:focus,.f-group select:focus,.f-group textarea:focus{border-color:var(--gold)}
+.f-group textarea{height:100px}
+.f-group select option{background:var(--navy)}
+
+/* ─── FLOATING WHATSAPP ─── */
+.wa-wrap{position:fixed;bottom:28px;right:28px;z-index:600;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.wa-tooltip{background:var(--black);border:1px solid var(--border);color:#fff;padding:10px 16px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.25s;border-radius:2px}
+.wa-wrap:hover .wa-tooltip{opacity:1}
+.wa-btn{width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:28px;box-shadow:0 8px 24px rgba(37,211,102,0.4);animation:waPulse 2.5s ease-in-out infinite}
+@keyframes waPulse{0%,100%{box-shadow:0 8px 24px rgba(37,211,102,0.4)}50%{box-shadow:0 8px 24px rgba(37,211,102,0.4),0 0 0 12px rgba(37,211,102,0.1)}}
+
+/* ─── FOOTER ─── */
+footer{background:var(--navy);border-top:1px solid var(--border);padding:0 48px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;padding:48px 0;border-bottom:1px solid var(--border)}
+.footer-brand{font-family:Georgia,serif;font-style:italic;font-size:20px;color:var(--gold);margin-bottom:8px}
+.footer-brand-sub{font-family:'Arial Black',sans-serif;font-size:10px;letter-spacing:4px;color:#fff;margin-bottom:16px}
+.footer-desc{font-size:13px;color:var(--muted);line-height:1.8}
+.footer-heading{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:18px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:13px;transition:color 0.2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:11px;color:var(--muted)}
+.footer-rera{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  nav{padding:14px 20px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  section{padding:60px 20px}
+  .hero{padding:100px 20px 60px}
+  .overview-grid,.builder-grid,.loc-grid,.emi-grid,.contact-page-grid,.footer-top{grid-template-columns:1fr;gap:32px}
+  .plans-grid{grid-template-columns:1fr}
+  .amen-grid{grid-template-columns:1fr 1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr;grid-template-rows:auto}
+  .g-item:first-child{grid-row:auto}
+  .hero-stats{gap:28px;flex-wrap:wrap}
+  .trust-strip{gap:0;flex-wrap:wrap}
+  .trust-item{min-width:50%;border-right:none;border-bottom:1px solid var(--border);padding:16px 0}
+  footer{padding:0 20px}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+  .f-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ FLOATING WHATSAPP ═══ -->
+<div class="wa-wrap">
+  <div class="wa-tooltip">💬 Chat on WhatsApp</div>
+  <a href="https://wa.me/91XXXXXXXXXX?text=Hi%2C+I%27m+interested+in+Golden+Heights" target="_blank" class="wa-btn">💬</a>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <span class="nav-logo-italic">Prestige</span>
+    <span class="nav-logo-bold">Builders</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+    <li><a href="#" onclick="showPage('about')" id="nav-about">About Project</a></li>
+    <li><a href="#" onclick="showPage('builder')" id="nav-builder">Builder</a></li>
+    <li><a href="#" onclick="showPage('contact')" id="nav-contact" class="nav-cta">Book Visit</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home');toggleMenu()">🏠 Home</a>
+  <a href="#" onclick="showPage('about');toggleMenu()">🏗️ About Project</a>
+  <a href="#" onclick="showPage('builder');toggleMenu()">🏢 Builder</a>
+  <a href="#" onclick="showPage('contact');toggleMenu()">📅 Book Site Visit</a>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 1 — HOME -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-tag">RERA Registered · New Launch 2025</div>
+    <div class="hero-pretitle">Introducing</div>
+    <h1 class="hero-title">GOLDEN<em>HEIGHTS</em></h1>
+    <p class="hero-loc">📍 Andheri West, Mumbai, Maharashtra</p>
+    <p class="hero-desc">2 &amp; 3 BHK premium residences built for modern families. <strong>120 thoughtfully designed units</strong> across 14 floors — with world-class amenities, vastu-compliant layouts, and a location that keeps you connected to everything.</p>
+    <div class="hero-btns">
+      <button class="btn-gold" onclick="showPage('contact')">Book Free Site Visit</button>
+      <button class="btn-outline" onclick="showPage('about')">Explore Project</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hstat-num">₹45L</div><div class="hstat-lbl">Starting Price</div></div>
+      <div><div class="hstat-num">G+14</div><div class="hstat-lbl">Floors</div></div>
+      <div><div class="hstat-num">120</div><div class="hstat-lbl">Total Units</div></div>
+      <div><div class="hstat-num">Dec '26</div><div class="hstat-lbl">Possession</div></div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-item"><div class="trust-num">RERA ✔</div><div class="trust-lbl">Registered Project</div></div>
+    <div class="trust-item"><div class="trust-num">16+</div><div class="trust-lbl">Years Experience</div></div>
+    <div class="trust-item"><div class="trust-num">5,000+</div><div class="trust-lbl">Happy Families</div></div>
+    <div class="trust-item"><div class="trust-num">12</div><div class="trust-lbl">Completed Projects</div></div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section class="overview">
+    <div class="eyebrow">About The Project</div>
+    <h2 class="sec-title">Designed For<br/>Modern Living</h2>
+    <div class="overview-grid">
+      <div class="overview-text">
+        <p>Golden Heights is a premium residential project by <strong>Prestige Builders</strong>, offering thoughtfully designed 2 and 3 BHK apartments in Andheri West — one of Mumbai's most sought-after neighbourhoods.</p>
+        <p>Every home is crafted with <strong>quality construction, natural ventilation, and smart space planning</strong> for families who want comfort without compromise.</p>
+        <p>With possession expected by <strong>December 2026</strong>, this is your opportunity to own a home in a rapidly appreciating location at launch pricing.</p>
+        <div style="margin-top:28px"><button class="btn-gold" onclick="showPage('contact')">Get Price Details →</button></div>
+      </div>
+      <div class="feat-list">
+        <div class="feat-row"><div class="feat-icon">🏗️</div><div class="feat-text">RERA registered &amp; approved — fully transparent process</div></div>
+        <div class="feat-row"><div class="feat-icon">📐</div><div class="feat-text">Vastu-compliant layouts with maximum natural sunlight</div></div>
+        <div class="feat-row"><div class="feat-icon">🔐</div><div class="feat-text">24/7 security with CCTV monitoring across all floors</div></div>
+        <div class="feat-row"><div class="feat-icon">🚗</div><div class="feat-text">Dedicated covered parking for every unit</div></div>
+        <div class="feat-row"><div class="feat-icon">💡</div><div class="feat-text">100% power backup for all common areas and lifts</div></div>
+        <div class="feat-row"><div class="feat-icon">💰</div><div class="feat-text">Flexible payment plans with home loan assistance</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMENITIES PREVIEW -->
+  <section style="background:var(--black);padding:90px 48px">
+    <div class="eyebrow">Lifestyle</div>
+    <h2 class="sec-title">World-Class Amenities</h2>
+    <p class="sec-sub">Everything you need for a complete life — right within your building.</p>
+    <div class="amen-grid">
+      <div class="amen-card"><span class="amen-icon">🏊</span><div class="amen-name">Swimming Pool</div><div class="amen-desc">Olympic-size rooftop pool with sundecks</div></div>
+      <div class="amen-card"><span class="amen-icon">💪</span><div class="amen-name">Gymnasium</div><div class="amen-desc">Fully equipped with modern fitness gear</div></div>
+      <div class="amen-card"><span class="amen-icon">🏛️</span><div class="amen-name">Clubhouse</div><div class="amen-desc">Private events &amp; community gatherings</div></div>
+      <div class="amen-card"><span class="amen-icon">🛡️</span><div class="amen-name">24/7 Security</div><div class="amen-desc">CCTV, gated entry, on-site guards</div></div>
+      <div class="amen-card"><span class="amen-icon">🌳</span><div class="amen-name">Landscaped Garden</div><div class="amen-desc">2 acres of green open spaces</div></div>
+      <div class="amen-card"><span class="amen-icon">🧒</span><div class="amen-name">Kids Play Area</div><div class="amen-desc">Safe, shaded outdoor play zone</div></div>
+      <div class="amen-card"><span class="amen-icon">⚡</span><div class="amen-name">Power Backup</div><div class="amen-desc">100% backup for lifts &amp; common areas</div></div>
+      <div class="amen-card"><span class="amen-icon">🎭</span><div class="amen-name">Indoor Games</div><div class="amen-desc">Table tennis, carrom, chess room</div></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section style="padding:0;background:var(--black)">
+    <div style="padding:60px 48px 24px">
+      <div class="eyebrow">Gallery</div>
+      <h2 class="sec-title">A Glimpse Inside</h2>
+      <p class="sec-sub">Visualize your future home — actual photos available during site visit.</p>
+    </div>
+    <div class="gallery-grid" style="margin:0 48px 48px">
+      <div class="g-item"><div class="g-fill">EXTERIOR VIEW</div><div class="g-tag">Building Facade</div></div>
+      <div class="g-item"><div class="g-fill">LIVING ROOM</div><div class="g-tag">2BHK Sample Flat</div></div>
+      <div class="g-item"><div class="g-fill">MASTER BED</div><div class="g-tag">Master Bedroom</div></div>
+      <div class="g-item"><div class="g-fill">CLUBHOUSE</div><div class="g-tag">Amenity Zone</div></div>
+      <div class="g-item"><div class="g-fill">POOL DECK</div><div class="g-tag">Rooftop Pool</div></div>
+    </div>
+    <p class="gallery-note">📸 Add your real project photos here — replace the placeholders above with actual images</p>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section style="background:var(--navy)">
+    <div class="eyebrow">Happy Residents</div>
+    <h2 class="sec-title">What Our Families Say</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">From the moment we visited the site to the day we moved in, Prestige Builders was there at every step. The quality of construction is outstanding and the amenities are exactly as promised.</p>
+        <div class="testi-name">Rajesh &amp; Priya Sharma</div>
+        <div class="testi-unit">2 BHK · Floor 8 · Moved in 2023</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">The location is perfect — metro is literally 5 minutes away. My kids love the play area and the pool. Best investment we ever made. Zero regrets after 2 years of living here.</p>
+        <div class="testi-name">Suresh Menon</div>
+        <div class="testi-unit">3 BHK · Floor 11 · Moved in 2022</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">I was skeptical at first, but the transparency from the Prestige team gave me confidence. RERA registration, timely updates, early delivery — they delivered on every promise.</p>
+        <div class="testi-name">Anita Desai</div>
+        <div class="testi-unit">2 BHK · Floor 5 · Moved in 2023</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section style="background:var(--gold);padding:60px 48px;text-align:center">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,64px);color:var(--black);margin-bottom:12px">Ready To Book Your Dream Home?</div>
+    <p style="font-size:15px;color:rgba(7,9,15,0.7);margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto">Site visits are available 7 days a week. Our team will walk you through everything — no pressure, just information.</p>
+    <button class="btn-outline" style="border-color:var(--black);color:var(--black)" onclick="showPage('contact')">Schedule Your Visit Today →</button>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 2 — ABOUT PROJECT -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div style="padding-top:62px">
+    <div class="page-tabs">
+      <button class="page-tab active" onclick="switchTab(this,'tab-plans')">Floor Plans &amp; Pricing</button>
+      <button class="page-tab" onclick="switchTab(this,'tab-location')">Location &amp; Connectivity</button>
+      <button class="page-tab" onclick="switchTab(this,'tab-emi')">EMI Calculator</button>
+    </div>
+
+    <!-- TAB: FLOOR PLANS -->
+    <div id="tab-plans">
+      <section style="background:var(--black)">
+        <div class="eyebrow">Choose Your Home</div>
+        <h2 class="sec-title">Floor Plans &amp; Pricing</h2>
+        <p class="sec-sub">All units come with premium fittings, vitrified tiles, modular kitchen, and branded sanitary fittings.</p>
+        <div class="plans-grid">
+          <div class="plan-card">
+            <div class="plan-visual"><div class="plan-visual-txt">2 BHK</div></div>
+            <div class="plan-body">
+              <div class="plan-type">2 BHK Compact</div>
+              <div class="plan-size">680 – 780 SQ FT · FLOORS 2-6</div>
+              <div class="plan-price">₹45 – 52 Lac</div>
+              <div class="plan-emi">EMI from ₹28,000/month*</div>
+              <div class="plan-details">
+                <span class="plan-detail-tag">2 Bed</span>
+                <span class="plan-detail-tag">2 Bath</span>
+                <span class="plan-detail-tag">1 Balcony</span>
+                <span class="plan-detail-tag">Parking</span>
+              </div>
+              <button class="plan-btn" onclick="showPage('contact')">Get Full Details</button>
+            </div>
+          </div>
+          <div class="plan-card plan-featured">
+            <div class="plan-visual" style="background:rgba(184,150,46,0.15)">
+              <div class="plan-featured-badge">MOST POPULAR</div>
+              <div class="plan-visual-txt" style="color:rgba(184,150,46,0.6)">2 BHK</div>
+            </div>
+            <div class="plan-body">
+              <div class="plan-type">2 BHK Premium</div>
+              <div class="plan-size">820 – 920 SQ FT · FLOORS 7-11</div>
+              <div class="plan-price">₹58 – 68 Lac</div>
+              <div class="plan-emi">EMI from ₹36,000/month*</div>
+              <div class="plan-details">
+                <span class="plan-detail-tag">2 Bed</span>
+                <span class="plan-detail-tag">2 Bath</span>
+                <span class="plan-detail-tag">2 Balcony</span>
+                <span class="plan-detail-tag">Parking</span>
+              </div>
+              <button class="plan-btn" onclick="showPage('contact')">Get Full Details</button>
+            </div>
+          </div>
+          <div class="plan-card">
+            <div class="plan-visual"><div class="plan-visual-txt">3 BHK</div></div>
+            <div class="plan-body">
+              <div class="plan-type">3 BHK Deluxe</div>
+              <div class="plan-size">1080 – 1200 SQ FT · FLOORS 12-14</div>
+              <div class="plan-price">₹82 – 96 Lac</div>
+              <div class="plan-emi">EMI from ₹51,000/month*</div>
+              <div class="plan-details">
+                <span class="plan-detail-tag">3 Bed</span>
+                <span class="plan-detail-tag">3 Bath</span>
+                <span class="plan-detail-tag">2 Balcony</span>
+                <span class="plan-detail-tag">2 Parking</span>
+              </div>
+              <button class="plan-btn" onclick="showPage('contact')">Get Full Details</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:20px;font-size:11px;color:var(--muted);text-align:center;font-style:italic">*EMI is indicative. Actual amount depends on loan amount, interest rate, tenure and bank policies.</div>
+      </section>
+    </div>
+
+    <!-- TAB: LOCATION -->
+    <div id="tab-location" style="display:none">
+      <section style="background:var(--navy)">
+        <div class="eyebrow">Connectivity</div>
+        <h2 class="sec-title">Prime Location</h2>
+        <p class="sec-sub">Andheri West puts you at the heart of Mumbai — connected to business hubs, schools, hospitals, and entertainment.</p>
+        <div class="loc-grid">
+          <div class="loc-map-wrap">
+            <div class="loc-map">
+              <div class="loc-map-grid"></div>
+              <div class="road-h" style="top:30%"></div>
+              <div class="road-h" style="top:65%"></div>
+              <div class="road-v" style="left:40%"></div>
+              <div class="road-v" style="left:72%"></div>
+              <div class="loc-pin" style="top:24%;left:18%"><div class="p-dot"></div><div class="p-lbl">Metro · 5m</div></div>
+              <div class="loc-pin" style="top:16%;left:80%"><div class="p-dot"></div><div class="p-lbl">Hospital · 10m</div></div>
+              <div class="loc-pin" style="top:52%;left:10%"><div class="p-dot"></div><div class="p-lbl">School · 12m</div></div>
+              <div class="loc-pin" style="top:80%;left:28%"><div class="p-dot"></div><div class="p-lbl">Mall · 8m</div></div>
+              <div class="loc-pin" style="top:82%;left:74%"><div class="p-dot"></div><div class="p-lbl">Airport · 25m</div></div>
+              <div class="loc-pin" style="top:38%;left:88%"><div class="p-dot"></div><div class="p-lbl">IT Park · 15m</div></div>
+              <div class="loc-pin-main" style="top:52%;left:48%">
+                <div class="pin-label">GOLDEN HEIGHTS</div>
+                <div class="pin-dot"></div>
+              </div>
+            </div>
+            <p class="loc-caption">Illustrative map — actual distances approximate</p>
+          </div>
+          <div>
+            <div class="loc-list">
+              <div class="loc-row"><span class="loc-place">🚇 Metro Station (Andheri)</span><span class="loc-dist">5 min</span></div>
+              <div class="loc-row"><span class="loc-place">✈️ International Airport</span><span class="loc-dist">25 min</span></div>
+              <div class="loc-row"><span class="loc-place">🏥 Kokilaben Hospital</span><span class="loc-dist">10 min</span></div>
+              <div class="loc-row"><span class="loc-place">🛍️ InOrbit Mall</span><span class="loc-dist">8 min</span></div>
+              <div class="loc-row"><span class="loc-place">🏫 Ryan International School</span><span class="loc-dist">12 min</span></div>
+              <div class="loc-row"><span class="loc-place">💼 SEEPZ IT Park</span><span class="loc-dist">15 min</span></div>
+              <div class="loc-row"><span class="loc-place">🚂 Andheri Railway Station</span><span class="loc-dist">7 min</span></div>
+            </div>
+            <div style="margin-top:28px">
+              <button class="btn-gold" onclick="showPage('contact')">Book Site Visit →</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:48px">
+          <div class="eyebrow" style="margin-bottom:16px">Live Map</div>
+          <iframe class="loc-map-embed" loading="lazy" src="https://www.google.com/maps?q=Andheri+West,Mumbai,Maharashtra&output=embed" title="Project Location"></iframe>
+          <p class="loc-caption">Replace with your exact project address link from Google Maps → Share → Embed</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB: EMI CALCULATOR -->
+    <div id="tab-emi" style="display:none">
+      <section style="background:var(--black)">
+        <div class="eyebrow">Plan Your Budget</div>
+        <h2 class="sec-title">EMI Calculator</h2>
+        <p class="sec-sub">Adjust the sliders to see your estimated monthly payment instantly.</p>
+        <div class="emi-grid">
+          <div>
+            <div class="emi-card">
+              <div class="emi-row">
+                <div class="emi-label">Loan Amount <span id="loanAmtLabel">₹45,00,000</span></div>
+                <input type="range" id="loanAmt" min="2000000" max="9000000" step="100000" value="4500000" oninput="calcEMI()"/>
+              </div>
+              <div class="emi-row">
+                <div class="emi-label">Interest Rate (% p.a.) <span id="rateLabel">8.5%</span></div>
+                <input type="range" id="rate" min="6" max="14" step="0.1" value="8.5" oninput="calcEMI()"/>
+              </div>
+              <div class="emi-row">
+                <div class="emi-label">Loan Tenure <span id="tenureLabel">20 years</span></div>
+                <input type="range" id="tenure" min="5" max="30" step="1" value="20" oninput="calcEMI()"/>
+              </div>
+              <div class="emi-result">
+                <div class="emi-result-lbl">Monthly EMI</div>
+                <div class="emi-result-val" id="emiResult">₹39,034</div>
+                <div class="emi-result-sub">Estimated amount</div>
+              </div>
+            </div>
+            <div class="emi-note">*This is an approximate calculation for reference only. Actual EMI depends on bank policies, credit score, and processing fees. Our team can help you get the best loan deal.</div>
+          </div>
+          <div>
+            <div style="background:var(--navy);border:1px solid var(--border);padding:36px">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;margin-bottom:24px">Loan Breakdown</div>
+              <div class="emi-breakdown">
+                <div class="emi-brow"><span>Principal Amount</span><span id="bPrincipal">₹45,00,000</span></div>
+                <div class="emi-brow"><span>Total Interest</span><span id="bInterest">₹48,76,160</span></div>
+                <div class="emi-brow"><span>Total Payment</span><span id="bTotal">₹93,76,160</span></div>
+                <div class="emi-brow"><span>Monthly EMI</span><span id="bEMI">₹39,034</span></div>
+              </div>
+              <div style="margin-top:28px">
+                <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:14px">PARTNER BANKS</div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="background:var(--navy2);border:1px solid var(--border);padding:12px 16px;font-size:13px;color:#dde0ee">🏦 SBI Home Loans — from 8.40% p.a.</div>
+                  <div style="background:var(--navy2);border:1px solid var(--border);padding:12px 16px;font-size:13px;color:#dde0ee">🏦 HDFC Bank — from 8.50% p.a.</div>
+                  <div style="background:var(--navy2);border:1px solid var(--border);padding:12px 16px;font-size:13px;color:#dde0ee">🏦 ICICI Bank — from 8.75% p.a.</div>
+                </div>
+              </div>
+              <div style="margin-top:24px">
+                <button class="btn-gold" style="width:100%;padding:15px" onclick="showPage('contact')">Get Loan Assistance →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 3 — BUILDER -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page" id="page-builder">
+  <div style="padding-top:62px">
+    <section style="background:var(--navy)">
+      <div class="eyebrow">About The Developer</div>
+      <h2 class="sec-title">Prestige Builders</h2>
+      <div class="builder-grid">
+        <div>
+          <div class="builder-text">
+            <p>Founded in 2008, <strong>Prestige Builders</strong> has been crafting quality homes across Maharashtra for over 16 years. With a philosophy rooted in transparency, timely delivery, and superior construction, we've become one of the most trusted names in Mumbai real estate.</p>
+            <p>Every project we build starts with a simple question: <strong>would we want to live here?</strong> That mindset drives our design decisions, material choices, and after-sales commitment.</p>
+            <p>Golden Heights is our most ambitious residential project to date — bringing together the best of location, design, and lifestyle for families who deserve nothing less than the best.</p>
+          </div>
+          <div class="builder-stats">
+            <div class="b-stat"><div class="b-stat-num">16+</div><div class="b-stat-lbl">Years Experience</div></div>
+            <div class="b-stat"><div class="b-stat-num">5000+</div><div class="b-stat-lbl">Homes Delivered</div></div>
+            <div class="b-stat"><div class="b-stat-num">12</div><div class="b-stat-lbl">Projects Done</div></div>
+            <div class="b-stat"><div class="b-stat-num">100%</div><div class="b-stat-lbl">On-Time Delivery</div></div>
+          </div>
+          <div class="award-row" style="margin-top:28px">
+            <div class="award"><div class="award-icon">🏆</div><div><div class="award-text">Best Developer of the Year — Maharashtra Real Estate Awards</div><div class="award-year">2023</div></div></div>
+            <div class="award"><div class="award-icon">⭐</div><div><div class="award-text">5-Star Rating — MahaRERA Customer Satisfaction Survey</div><div class="award-year">2022 · 2023</div></div></div>
+            <div class="award"><div class="award-icon">🌿</div><div><div class="award-text">Green Building Certification — IGBC Gold Rating</div><div class="award-year">2021</div></div></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:3px;margin-bottom:16px">COMPLETED PROJECTS</div>
+          <div class="project-list">
+            <div class="proj-row"><div><div class="proj-name">Silver Palms</div><div class="proj-loc">Powai, Mumbai · 2BHK &amp; 3BHK</div></div><span class="proj-status done">Delivered</span></div>
+            <div class="proj-row"><div><div class="proj-name">Sunrise Valley</div><div class="proj-loc">Thane, Mumbai · 1BHK &amp; 2BHK</div></div><span class="proj-status done">Delivered</span></div>
+            <div class="proj-row"><div><div class="proj-name">Park Residences</div><div class="proj-loc">Bandra East, Mumbai · 3BHK &amp; 4BHK</div></div><span class="proj-status done">Delivered</span></div>
+            <div class="proj-row"><div><div class="proj-name">Blue Ridge Towers</div><div class="proj-loc">Navi Mumbai · 2BHK</div></div><span class="proj-status done">Delivered</span></div>
+            <div class="proj-row"><div><div class="proj-name">The Orchid</div><div class="proj-loc">Malad West, Mumbai · 2BHK &amp; 3BHK</div></div><span class="proj-status ongoing">Ongoing</span></div>
+            <div class="proj-row"><div><div class="proj-name">Golden Heights</div><div class="proj-loc">Andheri West, Mumbai · 2BHK &amp; 3BHK</div></div><span class="proj-status ongoing">New Launch</span></div>
+          </div>
+          <div style="margin-top:28px"><button class="btn-gold" onclick="showPage('contact')">Book Site Visit →</button></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PAGE 4 — CONTACT / BOOK VISIT -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div style="padding-top:62px">
+    <section style="background:var(--navy)">
+      <div class="eyebrow">Get In Touch</div>
+      <h2 class="sec-title">Book Your<br/><span style="color:var(--gold)">Free Site Visit</span></h2>
+      <div class="contact-page-grid">
+        <div>
+          <p style="font-size:14px;color:#b0b8d0;line-height:1.85;margin-bottom:32px">Schedule a free site visit and see your future home in person. No obligation. Our team will walk you through the model flat, amenities, and the complete buying process.</p>
+          <div class="contact-info-rows">
+            <a class="ci-row" href="tel:+91XXXXXXXXXX"><div class="ci-icon">📞</div><div><div class="ci-sub">Call Us</div><div class="ci-val">+91 XXXXX XXXXX</div></div></a>
+            <a class="ci-row" href="https://wa.me/91XXXXXXXXXX" target="_blank"><div class="ci-icon">💬</div><div><div class="ci-sub">WhatsApp</div><div class="ci-val">+91 XXXXX XXXXX</div></div></a>
+            <a class="ci-row" href="mailto:info@prestigebuilders.com"><div class="ci-icon">✉️</div><div><div class="ci-sub">Email</div><div class="ci-val">info@prestigebuilders.com</div></div></a>
+            <a class="ci-row" href="#"><div class="ci-icon">📍</div><div><div class="ci-sub">Project Site</div><div class="ci-val">Andheri West, Mumbai — Near Metro Station</div></div></a>
+          </div>
+          <div class="office-hrs">
+            <h3>Site Visit Hours</h3>
+            <div class="hrs-row"><span>Monday – Friday</span><span>10:00 AM – 7:00 PM</span></div>
+            <div class="hrs-row"><span>Saturday</span><span>9:00 AM – 6:00 PM</span></div>
+            <div class="hrs-row"><span>Sunday</span><span>10:00 AM – 4:00 PM</span></div>
+          </div>
+        </div>
+        <div class="form-card">
+          <div class="form-title">Book Your Visit</div>
+          <div class="form-sub">Fill the form and our team will call you within 2 hours to confirm.</div>
+          <div class="f-row">
+            <div class="f-group"><label>First Name</label><input type="text" placeholder="Your name"/></div>
+            <div class="f-group"><label>Last Name</label><input type="text" placeholder="Last name"/></div>
+          </div>
+          <div class="f-row">
+            <div class="f-group"><label>Phone Number</label><input type="text" placeholder="+91 XXXXX XXXXX"/></div>
+            <div class="f-group"><label>Email Address</label><input type="email" placeholder="your@email.com"/></div>
+          </div>
+          <div class="f-group">
+            <label>Interested In</label>
+            <select>
+              <option>2 BHK Compact — ₹45 Lac onwards</option>
+              <option>2 BHK Premium — ₹58 Lac onwards</option>
+              <option>3 BHK Deluxe — ₹82 Lac onwards</option>
+              <option>Not decided yet — need guidance</option>
+            </select>
+          </div>
+          <div class="f-row">
+            <div class="f-group"><label>Preferred Visit Date</label><input type="date"/></div>
+            <div class="f-group"><label>Preferred Time</label><select><option>10:00 AM</option><option>12:00 PM</option><option>2:00 PM</option><option>4:00 PM</option><option>6:00 PM</option></select></div>
+          </div>
+          <div class="f-group"><label>Message (Optional)</label><textarea placeholder="Any questions or specific requirements?"></textarea></div>
+          <button class="btn-gold" style="width:100%;padding:17px;font-size:12px;" onclick="submitForm()">Book My Free Site Visit →</button>
+          <p style="font-size:11px;color:var(--muted);margin-top:14px;text-align:center">🔒 Your information is 100% safe. We never share your details.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Prestige</div>
+      <div class="footer-brand-sub">Builders</div>
+      <p class="footer-desc">Building dream homes across Maharashtra since 2008. Trusted by 5,000+ families. RERA registered, quality assured.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <div class="footer-links">
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('about')">Floor Plans</a>
+        <a href="#" onclick="showPage('about');setTimeout(()=>switchTabById('tab-location'),100)">Location</a>
+        <a href="#" onclick="showPage('about');setTimeout(()=>switchTabById('tab-emi'),100)">EMI Calculator</a>
+        <a href="#" onclick="showPage('builder')">About Builder</a>
+        <a href="#" onclick="showPage('contact')">Book Site Visit</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Contact</div>
+      <div class="footer-links">
+        <a href="tel:+91XXXXXXXXXX">📞 +91 XXXXX XXXXX</a>
+        <a href="#">💬 WhatsApp Us</a>
+        <a href="mailto:info@prestigebuilders.com">✉️ info@prestigebuilders.com</a>
+        <a href="#">📍 Andheri West, Mumbai</a>
+      </div>
+      <div style="margin-top:20px;font-size:12px;color:var(--muted)">Site Visit: Mon–Sat 10AM–7PM<br/>Sunday: 10AM–4PM</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-rera">RERA Reg. No: MAHXXXXXXXXXXXXX</div>
+    <div>© 2025 Prestige Builders · All Rights Reserved</div>
+    <div>Designed by <span style="color:var(--gold)">KM Studio</span></div>
+  </div>
+</footer>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script>
+// ─── Page Navigation ───
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  const navEl = document.getElementById('nav-'+name);
+  if(navEl) navEl.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── Page Tabs ───
+function switchTab(btn, tabId){
+  btn.closest('.page').querySelectorAll('.page-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  btn.closest('.page').querySelectorAll('[id^="tab-"]').forEach(t=>t.style.display='none');
+  document.getElementById(tabId).style.display='block';
+}
+function switchTabById(tabId){
+  const tab = document.getElementById(tabId);
+  if(!tab) return;
+  document.querySelectorAll('[id^="tab-"]').forEach(t=>t.style.display='none');
+  tab.style.display='block';
+  document.querySelectorAll('.page-tab').forEach(t=>t.classList.remove('active'));
+  const tabs = document.querySelectorAll('.page-tab');
+  const ids = ['tab-plans','tab-location','tab-emi'];
+  const idx = ids.indexOf(tabId);
+  if(tabs[idx]) tabs[idx].classList.add('active');
+}
+
+// ─── Mobile Menu ───
+function toggleMenu(){
+  const m = document.getElementById('mobileMenu');
+  m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// ─── EMI Calculator ───
+function calcEMI(){
+  const loan = parseFloat(document.getElementById('loanAmt').value);
+  const rate = parseFloat(document.getElementById('rate').value);
+  const yrs  = parseFloat(document.getElementById('tenure').value);
+
+  document.getElementById('loanAmtLabel').textContent = '₹'+loan.toLocaleString('en-IN');
+  document.getElementById('rateLabel').textContent = rate.toFixed(1)+'%';
+  document.getElementById('tenureLabel').textContent = yrs+' years';
+
+  const r = rate/12/100, n = yrs*12;
+  const emi = (loan * r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
+  const totalPay = emi * n;
+  const totalInt = totalPay - loan;
+
+  const fmt = v => '₹'+Math.round(v).toLocaleString('en-IN');
+
+  document.getElementById('emiResult').textContent = fmt(emi);
+  if(document.getElementById('bPrincipal')){
+    document.getElementById('bPrincipal').textContent = fmt(loan);
+    document.getElementById('bInterest').textContent  = fmt(totalInt);
+    document.getElementById('bTotal').textContent     = fmt(totalPay);
+    document.getElementById('bEMI').textContent       = fmt(emi);
+  }
+}
+calcEMI();
+
+// ─── Form Submit ───
+function submitForm(){
+  alert('Thank you! Our team will call you within 2 hours to confirm your site visit.\n\nOr call us directly: +91 XXXXX XXXXX');
+}
+</script>
+</body>
+</html>
